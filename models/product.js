@@ -1,7 +1,7 @@
 // Table definition: product
 module.exports = function (sequelize, DataTypes) {
-  var product = sequelize.define(
-    "product",
+  var Product = sequelize.define(
+    "Product",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -54,5 +54,5 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   // Export table object
-  return product;
+  return Product;
 };
