@@ -1,11 +1,9 @@
 // Table definition: product
 module.exports = function (sequelize, DataTypes) {
-  var Product = sequelize.define(
-    "Product",
-    {
-      id: {
+  var Product = sequelize.define("Product",{
+   
+      title:  {
         type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: false,
         validate: {
           len: [1],

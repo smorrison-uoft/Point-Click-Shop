@@ -1,36 +1,16 @@
-// Table definition: category
-module.exports = function (sequelize, DataTypes) {
-  var category = sequelize.define(
-    "category",
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        allowNull: false,
-        validate: {
-          len: [1],
-        },
-      },
-      category_name: {
-        type: DataTypes.STRING(30),
-        allowNull: false,
-        validate: {
-          len: [1],
-        },
-      },
-      category_desc: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-        validate: {
-          len: [1],
-        },
-      },
-    },
-    {
-      freezeTableName: true,
-    }
-  );
+module.exports = function(sequelize, DataTypes) {
+  var category = sequelize.define("category", {
+    
+    name: DataTypes.STRING
+  });
 
-  // Export table object
+  category.associate = function(models) {
+   
+    category.hasMany(models.Product, {
+      onDelete: "cascade"
+    });
+  };
+
   return category;
 };
+
