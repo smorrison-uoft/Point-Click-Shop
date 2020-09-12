@@ -1,11 +1,12 @@
 // Table definition: category
 module.exports = function (sequelize, DataTypes) {
-  var category = sequelize.define(
-    "category",
+  var Category = sequelize.define(
+    "Category",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
         allowNull: false,
         validate: {
           len: [1],
@@ -32,5 +33,5 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   // Export table object
-  return category;
+  return Category;
 };

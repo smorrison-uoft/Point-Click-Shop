@@ -7,6 +7,10 @@
 require('dotenv').config();
 var express = require("express");
 
+var router = express.Router();
+
+
+
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -44,3 +48,5 @@ db.sequelize.sync({ force: true }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
+
+module.exports = router;
