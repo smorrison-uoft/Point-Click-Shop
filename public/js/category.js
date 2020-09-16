@@ -1,8 +1,15 @@
-var router = require("router");
-
 $(document).ready(function () {
+  var tempCategoryId = "";
 
-  readCat();
+  var catContainer = $(".catContainer");
+
+  var postCategorySelect = $("#category");
+
+  $(document).on("click", "button.delete", handleCategoryDelete);
+
+  $(document).on("click", "button.edit", handleCategoryEdit);
+  // postCategorySelect.on("change", handleCategoryChange);
+  // var posts;
 
   // Gets an optional query string from our url (i.e. ?post_id=23)
   var url = window.location.search;
@@ -23,7 +30,7 @@ $(document).ready(function () {
   var catForm = $("#cat_form");
   var categoryDescInput = $("#cat_desc");
   // Giving the postCategorySelect a default value
-  categoryDescInput.val("Personal");
+  //categoryDescInput.val("Personal");
   // Adding an event listener for when the form is submitted
   $(catForm).on("submit", function handleFormSubmit(event) {
     event.preventDefault();
@@ -42,8 +49,9 @@ $(document).ready(function () {
 
     // If we're updating a post run updatePost to update a post
     // Otherwise run submitPost to create a whole new post
+    // createUpdateCategory(updating) 
     if (updating) {
-      newCategory.id = categoryId;
+      newCategory.id = tempCategoryId;
       updatePost(newCategory);
     } else {
       submitPost(newCategory);
@@ -57,6 +65,8 @@ $(document).ready(function () {
     });
   }
 
+  accessDB();
+
   // Gets post data for a post if we're editing
   function getCategoryData(id) {
     $.get("/api/category/" + id, function (data) {
@@ -68,6 +78,7 @@ $(document).ready(function () {
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
         updating = true;
+        // updatePost();
       }
     });
   }
@@ -76,24 +87,117 @@ $(document).ready(function () {
   function updatePost(post) {
     $.ajax({
       method: "PUT",
-      url: "/api/posts",
+      url: "/api/category",
       data: post,
     }).then(function () {
-      window.location.href = "/administrative";
-    });
-  }
-
-  function readCat() {
-    // Create all our routes and set up logic within those routes where required.
-    router.get("/", function (req, res) {
-      Category.all(function (data) {
-        var hbsObject = {
-          category_hbs: data,
-        };
-        console.log(hbsObject);
-        res.render("category", hbsObject);
-      });
+      accessDB();
     });
   }
   
+  function accessDB(category) {
+    var categoryString = category || "";
+    if (categoryString) {
+      categoryString = "/category/" + categoryString;
+    }
+    $.get("/api/category" + categoryString, function(data) {
+      console.log("Category", data);
+      posts = data;
+      if (!posts || !posts.length) {
+        displayEmpty();
+      }
+      else {
+        initializeRows();
+      }
+    });
+  }
+
+  function initializeRows() {
+    catContainer.empty();
+    var postsToAdd = [];
+    for (var i = 0; i < posts.length; i++) {
+      postsToAdd.push(createNewRow(posts[i]));
+    }
+    catContainer.append(postsToAdd);
+  }
+
+  // This function constructs a post's HTML
+  function createNewRow(post) {
+    var newPostCard = $("<div>");
+    newPostCard.addClass("card");
+    var newPostCardHeading = $("<div>");
+    newPostCardHeading.addClass("card-header");
+    var deleteBtn = $("<button>");
+    deleteBtn.text("x");
+    deleteBtn.addClass("delete btn btn-danger");
+    var editBtn = $("<button>");
+    editBtn.text("EDIT");
+    editBtn.addClass("edit btn btn-default");
+    var newPostTitle = $("<h2>");
+    var newPostDate = $("<small>");
+    var newPostCategory = $("<h5>");
+    newPostCategory.text(post.category);
+    newPostCategory.css({
+      float: "right",
+      "font-weight": "700",
+      "margin-top":
+      "-15px"
+    });
+    var newPostCardBody = $("<div>");
+    newPostCardBody.addClass("card-body");
+    var newPostBody = $("<p>");
+    newPostTitle.text(post.category_name + " " + post.category_desc + " ");
+    newPostBody.text(post.body);
+    var formattedDate = new Date(post.createdAt);
+    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    newPostDate.text(formattedDate);
+    newPostTitle.append(newPostDate);
+    newPostCardHeading.append(deleteBtn);
+    newPostCardHeading.append(editBtn);
+    newPostCardHeading.append(newPostTitle);
+    newPostCardHeading.append(newPostCategory);
+    newPostCardBody.append(newPostBody);
+    newPostCard.append(newPostCardHeading);
+    newPostCard.append(newPostCardBody);
+    newPostCard.data("post", post);
+    return newPostCard;
+  }
+
+  function displayEmpty() {
+    catContainer.empty();
+    var messageH2 = $("<h2>");
+    messageH2.css({ "text-align": "center", "margin-top": "50px" });
+    messageH2.html("No posts yet for this category, navigate <a href='/cms'>here</a> in order to create a new post.");
+    catContainer.append(messageH2);
+  }
+
+  // This function does an API call to delete posts
+  function deletePost(id) {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/category/" + id
+    })
+      .then(function() {
+        accessDB(postCategorySelect.val());
+      });
+  }
+
+  function handleCategoryDelete() {
+    var currentPost = $(this)
+      .parent()
+      .parent()
+      .data("post");
+    deletePost(currentPost.id);
+  }
+
+  // This function figures out which post we want to edit and takes it to the
+  // Appropriate url
+  function handleCategoryEdit() {
+    var currentPost = $(this)
+      .parent()
+      .parent()
+      .data("post");
+      tempCategoryId = currentPost.id;
+    getCategoryData(currentPost.id);
+  }
+
 });
