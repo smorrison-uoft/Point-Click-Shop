@@ -19,3 +19,4 @@ A Full-Stack ecommerce application where users can add, edit and delete items in
 * Sheldon Mall
 * Stephanie Morrison
 * Devonte Letts
+* Yeon Soo Choi
