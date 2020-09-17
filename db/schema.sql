@@ -1,3 +1,4 @@
+drop database if EXISTS pointclickshop;
 create database pointclickshop;
 use pointclickshop;
 
