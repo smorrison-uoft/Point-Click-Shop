@@ -1,6 +1,6 @@
 # PointClickShop
 
-A Full-Stack ecommerce applicatiom where users can add, edit and delete items in their cart. The items will save and export to the database.
+A Full-Stack ecommerce application where users can add, edit and delete items in their cart. The items will save and export to the database.
 
 # Instructions
 
