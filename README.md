@@ -2,7 +2,7 @@
 
 A Full-Stack ecommerce applicatiom where users can add, edit and delete items in their cart. The items will save and export to the database.
 
-#INSTRUCTIONS
+# INSTRUCTIONS
 
 1. Visit the website: 
 
@@ -14,8 +14,8 @@ A Full-Stack ecommerce applicatiom where users can add, edit and delete items in
 
 5. Edit and delete items of your choice. 
 
-#Collaborators
+# Collaborators
 
-> Sheldon Mall
-> Stephanie Morrison
-> Devonte Letts
+* Sheldon Mall
+* Stephanie Morrison
+* Devonte Letts
