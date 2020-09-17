@@ -1,55 +1,37 @@
-module.exports = function(sequelize, DataTypes) {
-  var category = sequelize.define("category", {
-    
-   id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      len: [1],
+// Table definition: category
+module.exports = function (sequelize, DataTypes) {
+  var Category = sequelize.define(
+    "Category",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+        validate: {
+          len: [1],
+        },
+      },
+      category_name: {
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        validate: {
+          len: [1],
+        },
+      },
+      category_desc: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          len: [1],
+        },
+      },
     },
-  },
-  product_name: {
-    type: DataTypes.STRING(30),
-    allowNull: false,
-    validate: {
-      len: [1],
-    },
-  },
-  category_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "category",
-      key: "id",
-    },
-    allowNull: false,
-    validate: {
-      len: [1],
-    },
-  },
-  price: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      len: [1],
-    },
-  },
-  product_desc: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    validate: {
-      len: [1],
-    },
-  },
-  product_image: {
-    type: DataTypes.STRING(50),
-    //   allowNull: false,
-  },
-},
-{
-  freezeTableName: true,
-}
-);
+    {
+      freezeTableName: true,
+    }
+  );
 
-// Export table object
-return category;
+  // Export table object
+  return Category;
 };
