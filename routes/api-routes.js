@@ -13,72 +13,75 @@ var db = require("../models");
 module.exports = function(app) {
 
   // GET route for getting all of the posts
-  app.get("/api/product/", function(req, res) {
-    db.Product.findAll({})
-      .then(function(dbProduct) {
-        res.json(dbProduct);
+  app.get("/api/category/:id", function(req, res) {
+    console.log(req.params.id);
+    db.Category.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function(dbCategory) {
+        res.json(dbCategory);
+      });
+  });
+  
+  app.get("/api/category/", function(req, res) {
+    console.log(db.Category);
+    db.Category.findAll({})
+      .then(function(dbCategory) {
+        res.json(dbCategory);
       });
   });
 
   // Get route for returning posts of a specific category
-  app.get("/api/product/category/:category", function(req, res) {
-    db.Product.findAll({
-      where: {
-        category: req.params.category
-      }
-    })
-      .then(function(dbProduct) {
-        res.json(dbProduct);
-      });
-  });
+  // app.get("/api/category/:category", function(req, res) {
+  //   db.Category.findAll({
+  //     where: {
+  //       category_name: req.params.category
+  //     }
+  //   })
+  //     .then(function(dbCategory) {
+  //       res.json(dbCategory);
+  //     });
+  // });
 
   // Get route for retrieving a single post
-  app.get("/api/product/:id", function(req, res) {
-    db.Product.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
-      .then(function(dbProduct) {
-        res.json(dbProduct);
-      });
-  });
 
   // POST route for saving a new post
-  app.post("/api/product", function(req, res) {
-    console.log(req.body);
-    db.Product.create({
-      name: req.body,product_name,
-      body: req.body.body,
-      category: req.body.category
+  app.post("/api/category", function(req, res) {
+    console.log(db.Category);
+    db.Category.create({
+      category_name: req.body.category_name,
+      //body: req.body.body,
+      category_desc: req.body.category_desc,
     })
-      .then(function(dbProduct) {
-        res.json(dbProduct);
+      .then(function(dbCategory) {
+        res.json(dbCategory);
       });
   });
 
   // DELETE route for deleting posts
-  app.delete("/api/product/:id", function(req, res) {
-    db.Product.destroy({
+  app.delete("/api/category/:id", function(req, res) {
+    db.Category.destroy({
       where: {
         id: req.params.id
       }
     })
-      .then(function(dbProduct) {
-        res.json(dbProduct);
+      .then(function(dbCategory) {
+        res.json(dbCategory);
       });
   });
 
   // PUT route for updating posts
-  app.put("/api/product", function(req, res) {
-    db.Product.update(req.body,
+  app.put("/api/category", function(req, res) {
+    db.Category.update(req.body,
       {
         where: {
           id: req.body.id
         }
       })
-      .then(function(dbProduct) {
-        res.json(dbProduct);
+      .then(function(dbCategory) {
+        res.json(dbCategory);
       });
   });
 };

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Administrative: Categories</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="row">
+        <div class="col-sm-2 mt-4">
+          <a class="btn btn-dark" href="/administrative">Go to Admin Portal</a>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+        <form id="cat_form">
+          <div class="form-group">
+            <label for="cat_name">Category Name:</label>
+            <input type="text" class="form-control" id="cat_name">
+            <br />
+            <label for="cat_desc">Description:</label>
+            <textarea class="form-control" rows="2" id="cat_desc"></textarea>
+            <br />
+            <button type="submit" class="btn btn-success submit btn-lg">Submit</button>
+          </div>
+        </form>  
+      </div>
+      
+      <div class="catContainer">
+
+      </div>
+      
+
+    </div>
+  </div>
+  <!-- Custom Script -->
+  <script src="js/category.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
+</body>
+
+</html>

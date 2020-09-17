@@ -12,18 +12,31 @@ module.exports = function(app) {
 
   // Each of the below routes just handles the HTML page that the user gets sent to.
 
-  // index route loads view.html
   app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/blog.html"));
+    res.sendFile(path.join(__dirname, "../public/products.html"));
   });
 
-  app.get("/cms", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/cms.html"));
+  app.get("/category", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/category.html"));
   });
 
-  // blog route loads blog.html
-  app.get("/blog", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/blog.html"));
+  // products route loads products.html
+  app.get("/products", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/products.html"));
+  });
+  
+  //Handlebars routes
+  app.get("/administrative", function(req, res) {
+    res.render("admin");
+  });
+  
+  app.get("/administrative/products", function(req, res) {
+    res.render("products");
+  });
+  
+  app.get("/administrative/categories", function(req, res) {
+    res.render("category");
   });
 
 };
+
