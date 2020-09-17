@@ -2,7 +2,7 @@
 
 A Full-Stack ecommerce applicatiom where users can add, edit and delete items in their cart. The items will save and export to the database.
 
-# INSTRUCTIONS
+# Instructions
 
 1. Visit the website: 
 
