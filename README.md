@@ -4,8 +4,7 @@ A Full-Stack ecommerce application where users can add, edit and delete items in
 
 # Instructions
 
-1. Visit the website: 
-
+1. Visit the website: https://quiet-tundra-37617.herokuapp.com/
 2. Use sidebar menu to choose option for navigation.
 
 3. Add item name and description.
